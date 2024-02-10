@@ -65,6 +65,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/FATFS/Target
         ${CMAKE_SOURCE_DIR}/FATFS/App
         ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
+        ${CMAKE_SOURCE_DIR}/STM32-W25Q-QSPI/Library
         )
  
 # Add C defines
@@ -136,6 +137,8 @@ Drivers/BSP/ST7735/logo_128_160.c
 Drivers/BSP/ST7735/logo_160_80.c
 Drivers/BSP/ST7735/st7735_reg.c
 Drivers/BSP/ST7735/st7735.c
+#Libs
+STM32-W25Q-QSPI/Library/w25q_mem.c
 #User sources
 Core/User/Src/InitTasks.cpp
 Core/User/Src/Blink.cpp
