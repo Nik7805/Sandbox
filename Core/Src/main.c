@@ -31,6 +31,8 @@
 /* USER CODE BEGIN Includes */
 #include "FreeRTOS.h"
 #include "InitTasks.h"
+#include "w25qxx_qspi.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,6 +103,13 @@ int main(void)
   MX_SDMMC1_SD_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
+
+  const char* string = "Hello QSPI!";
+  uint8_t readbuffer[100];
+  w25qxx_Init();
+  W25qxx_EraseSector(0);
+  W25qxx_Write((uint8_t*)string, 0, strlen(string));
+  W25qxx_Read(readbuffer, 0, 100);
   InitTasks();
   vTaskStartScheduler();
 

@@ -66,6 +66,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/FATFS/App
         ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
         ${CMAKE_SOURCE_DIR}/STM32-W25Q-QSPI/Library
+        ${CMAKE_SOURCE_DIR}/Drivers/BSP/W25QXX
         )
  
 # Add C defines
@@ -137,6 +138,8 @@ Drivers/BSP/ST7735/logo_128_160.c
 Drivers/BSP/ST7735/logo_160_80.c
 Drivers/BSP/ST7735/st7735_reg.c
 Drivers/BSP/ST7735/st7735.c
+Drivers/BSP/W25QXX/w25qxx_qspi.c
+# Drivers/BSP/W25QXX/w25qxx.c
 #Libs
 STM32-W25Q-QSPI/Library/w25q_mem.c
 #User sources
