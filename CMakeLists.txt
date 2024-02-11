@@ -62,9 +62,6 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/Include
         ${CMAKE_SOURCE_DIR}/Core/User/Inc
         ${CMAKE_SOURCE_DIR}/Drivers/BSP/ST7735
-        ${CMAKE_SOURCE_DIR}/FATFS/Target
-        ${CMAKE_SOURCE_DIR}/FATFS/App
-        ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
         ${CMAKE_SOURCE_DIR}/STM32-W25Q-QSPI/Library
         ${CMAKE_SOURCE_DIR}/Drivers/BSP/W25QXX
         )
@@ -118,19 +115,11 @@ Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c 
 Core/Src/quadspi.c 
 Core/Src/sdmmc.c 
-FATFS/App/fatfs.c 
-FATFS/Target/bsp_driver_sd.c 
-FATFS/Target/sd_diskio.c 
-FATFS/Target/fatfs_platform.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c 
-Middlewares/Third_Party/FatFs/src/diskio.c 
-Middlewares/Third_Party/FatFs/src/ff.c 
-Middlewares/Third_Party/FatFs/src/ff_gen_drv.c 
-Middlewares/Third_Party/FatFs/src/option/syscall.c
 startup_stm32h743xx.s
 #BSP
 Drivers/BSP/ST7735/lcd.c

@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
-#include "fatfs.h"
 #include "quadspi.h"
 #include "rtc.h"
 #include "sdmmc.h"
@@ -101,15 +100,17 @@ int main(void)
   MX_TIM1_Init();
   MX_QUADSPI_Init();
   MX_SDMMC1_SD_Init();
-  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
+
+  // QSPI test code.
   const char* string = "Hello QSPI!";
   uint8_t readbuffer[100];
   w25qxx_Init();
   W25qxx_EraseSector(0);
   W25qxx_Write((uint8_t*)string, 0, strlen(string));
   W25qxx_Read(readbuffer, 0, 100);
+
   InitTasks();
   vTaskStartScheduler();
 
