@@ -67,6 +67,8 @@ void Error_Handler(void);
 #define LCD_WR_RS_GPIO_Port GPIOE
 #define SD_SW_Pin GPIO_PIN_4
 #define SD_SW_GPIO_Port GPIOD
+#define SPIFlash_CS_Pin GPIO_PIN_6
+#define SPIFlash_CS_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 

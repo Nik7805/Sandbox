@@ -30,6 +30,7 @@
 #include "FreeRTOS.h"
 #include "InitTasks.h"
 #include "w25qxx_qspi.h"
+#include "w25qxx.h"
 #include <string.h>
 /* USER CODE END Includes */
 
@@ -94,10 +95,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_RTC_Init();
   MX_SPI4_Init();
   MX_TIM1_Init();
   MX_QUADSPI_Init();
+  MX_RTC_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -108,6 +110,17 @@ int main(void)
   W25qxx_EraseSector(0);
   W25qxx_Write((uint8_t*)string, 0, strlen(string));
   W25qxx_Read(readbuffer, 0, 100);
+
+  __NOP();
+
+  // SPI flash test code.
+
+  W25Qx_Init();
+  W25Qx_Erase_Block(0);
+  W25Qx_Write((uint8_t*)string, 0, strlen(string));
+  W25Qx_Read(readbuffer, 0, 100);
+
+  __NOP();
 
   InitTasks();
   vTaskStartScheduler();
@@ -175,7 +188,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 5;
   RCC_OscInitStruct.PLL.PLLN = 96;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
@@ -193,10 +206,10 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV1;
-  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV1;
+  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {

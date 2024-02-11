@@ -117,8 +117,8 @@
 #define W25QXXXX_FSR_QE                      ((uint8_t)0x02)    /*!< quad enable */
 
 
-#define W25Qx_Enable() 			HAL_GPIO_WritePin(F_CS_GPIO_Port, F_CS_Pin, GPIO_PIN_RESET)
-#define W25Qx_Disable() 		HAL_GPIO_WritePin(F_CS_GPIO_Port, F_CS_Pin, GPIO_PIN_SET)
+#define W25Qx_Enable() 			HAL_GPIO_WritePin(SPIFlash_CS_GPIO_Port, SPIFlash_CS_Pin, GPIO_PIN_RESET)
+#define W25Qx_Disable() 		HAL_GPIO_WritePin(SPIFlash_CS_GPIO_Port, SPIFlash_CS_Pin, GPIO_PIN_SET)
 
 #define W25Qx_OK            ((uint8_t)0x00)
 #define W25Qx_ERROR         ((uint8_t)0x01)

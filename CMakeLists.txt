@@ -123,7 +123,7 @@ Drivers/BSP/ST7735/logo_160_80.c
 Drivers/BSP/ST7735/st7735_reg.c
 Drivers/BSP/ST7735/st7735.c
 Drivers/BSP/W25QXX/w25qxx_qspi.c
-# Drivers/BSP/W25QXX/w25qxx.c
+Drivers/BSP/W25QXX/w25qxx.c
 #Libs
 STM32-W25Q-QSPI/Library/w25q_mem.c
 #User sources
