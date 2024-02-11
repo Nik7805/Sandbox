@@ -21,7 +21,6 @@
 #include "cmsis_os.h"
 #include "quadspi.h"
 #include "rtc.h"
-#include "sdmmc.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
@@ -99,12 +98,11 @@ int main(void)
   MX_SPI4_Init();
   MX_TIM1_Init();
   MX_QUADSPI_Init();
-  MX_SDMMC1_SD_Init();
   /* USER CODE BEGIN 2 */
 
 
   // QSPI test code.
-  const char* string = "Hello QSPI!";
+  const char* string = "Hello QSPI flash!";
   uint8_t readbuffer[100];
   w25qxx_Init();
   W25qxx_EraseSector(0);

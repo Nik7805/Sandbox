@@ -72,9 +72,10 @@ add_definitions(-DUSE_HAL_DRIVER -DSTM32H743xx -DTFT96)
 # Add you source file
 set(SOURCES
 #Drivers and RTOS
-Core/Src/main.c
-Core/Src/gpio.c
+Core/Src/main.c 
+Core/Src/gpio.c 
 Core/Src/freertos.c 
+Core/Src/quadspi.c 
 Core/Src/rtc.c 
 Core/Src/spi.c 
 Core/Src/tim.c 
@@ -96,6 +97,7 @@ Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c 
+Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c 
 Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c 
@@ -112,14 +114,7 @@ Middlewares/Third_Party/FreeRTOS/Source/tasks.c
 Middlewares/Third_Party/FreeRTOS/Source/timers.c 
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c 
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c 
-Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c 
-Core/Src/quadspi.c 
-Core/Src/sdmmc.c 
-Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c 
-Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c 
-Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c 
-Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c 
-Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c 
+Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c  
 startup_stm32h743xx.s
 #BSP
 Drivers/BSP/ST7735/lcd.c
