@@ -19,6 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "fatfs.h"
+#include "mdma.h"
 #include "quadspi.h"
 #include "rtc.h"
 #include "spi.h"
@@ -95,32 +97,34 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SPI4_Init();
+  MX_MDMA_Init();
   MX_TIM1_Init();
   MX_QUADSPI_Init();
   MX_RTC_Init();
+  MX_SPI4_Init();
   MX_SPI1_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 
 
   // QSPI test code.
-  const char* string = "Hello QSPI flash!";
-  uint8_t readbuffer[100];
-  w25qxx_Init();
-  W25qxx_EraseSector(0);
-  W25qxx_Write((uint8_t*)string, 0, strlen(string));
-  W25qxx_Read(readbuffer, 0, 100);
+  // const char* string = "HELLO QSPI FLASH!";
+  // uint8_t readbuffer[100];
+  // w25qxx_Init();
+  // W25qxx_EraseSector(0);
+  // W25qxx_Write((uint8_t*)string, 0, strlen(string));
+  // W25qxx_Read(readbuffer, 0, 100);
 
   __NOP();
 
   // SPI flash test code.
 
-  W25Qx_Init();
-  W25Qx_Erase_Block(0);
-  W25Qx_Write((uint8_t*)string, 0, strlen(string));
-  W25Qx_Read(readbuffer, 0, 100);
+  // W25Qx_Init();
+  // W25Qx_Erase_Block(0);
+  // W25Qx_Write((uint8_t*)string, 0, strlen(string));
+  // W25Qx_Read(readbuffer, 0, 100);
 
-  __NOP();
+  // __NOP();
 
   InitTasks();
   vTaskStartScheduler();

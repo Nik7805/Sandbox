@@ -10,6 +10,6 @@ TaskHandle_t lcd_handle;
 
 void InitTasks()
 {
-    xTaskCreate(Blink, "BlinkTsk", 128, NULL, 1, &blink_handle);
+    xTaskCreate(Blink, "BlinkTsk", 2048, NULL, 1, &blink_handle);
     xTaskCreate(LcdThread, "Lcd", 512, NULL, 1, &lcd_handle);
 }

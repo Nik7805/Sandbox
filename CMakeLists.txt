@@ -64,6 +64,9 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/Drivers/BSP/ST7735
         ${CMAKE_SOURCE_DIR}/STM32-W25Q-QSPI/Library
         ${CMAKE_SOURCE_DIR}/Drivers/BSP/W25QXX
+        ${CMAKE_SOURCE_DIR}/FATFS/Target 
+        ${CMAKE_SOURCE_DIR}/FATFS/App 
+        ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
         )
  
 # Add C defines
@@ -115,7 +118,14 @@ Middlewares/Third_Party/FreeRTOS/Source/timers.c
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c 
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c 
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c  
+Middlewares/Third_Party/FatFs/src/diskio.c 
+Middlewares/Third_Party/FatFs/src/ff.c 
+Middlewares/Third_Party/FatFs/src/ff_gen_drv.c 
+Middlewares/Third_Party/FatFs/src/option/syscall.c
 startup_stm32h743xx.s
+Core/Src/mdma.c 
+FATFS/App/fatfs.c 
+FATFS/Target/user_diskio.c 
 #BSP
 Drivers/BSP/ST7735/lcd.c
 Drivers/BSP/ST7735/logo_128_160.c

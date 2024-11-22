@@ -85,12 +85,17 @@ uint8_t w25qxx_EnterQPI(void);
 uint8_t w25qxx_Startup(uint8_t DTRMode);
 uint8_t W25qxx_WriteEnable(void);
 uint8_t W25qxx_EraseSector(uint32_t SectorAddress);
+uint8_t W25qxx_EraseSector_RTOS(uint32_t SectorAddress);
 uint8_t W25qxx_EraseBlock(uint32_t BlockAddress);
 uint8_t W25qxx_EraseChip(void);
 uint8_t W25qxx_PageProgram(uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
+uint8_t W25qxx_PageProgram_RTOS(uint8_t *pData, uint32_t WriteAddr, uint32_t Size);
 uint8_t W25qxx_Read(uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
+uint8_t W25qxx_Read_RTOS(uint8_t *pData, uint32_t ReadAddr, uint32_t Size);
 void W25qxx_WriteNoCheck(uint8_t *pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite);
+void W25qxx_WriteNoCheck_RTOS(uint8_t *pBuffer,uint32_t WriteAddr,uint32_t NumByteToWrite);
 void W25qxx_Write(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
+void W25qxx_Write_RTOS(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
 
 #ifdef __cplusplus
 }

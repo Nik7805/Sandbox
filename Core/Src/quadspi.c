@@ -25,6 +25,7 @@
 /* USER CODE END 0 */
 
 QSPI_HandleTypeDef hqspi;
+MDMA_HandleTypeDef hmdma_quadspi_fifo_th;
 
 /* QUADSPI init function */
 void MX_QUADSPI_Init(void)
@@ -118,6 +119,38 @@ void HAL_QSPI_MspInit(QSPI_HandleTypeDef* qspiHandle)
     GPIO_InitStruct.Alternate = GPIO_AF10_QUADSPI;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+    /* QUADSPI MDMA Init */
+    /* QUADSPI_FIFO_TH Init */
+    hmdma_quadspi_fifo_th.Instance = MDMA_Channel1;
+    hmdma_quadspi_fifo_th.Init.Request = MDMA_REQUEST_QUADSPI_FIFO_TH;
+    hmdma_quadspi_fifo_th.Init.TransferTriggerMode = MDMA_BUFFER_TRANSFER;
+    hmdma_quadspi_fifo_th.Init.Priority = MDMA_PRIORITY_LOW;
+    hmdma_quadspi_fifo_th.Init.Endianness = MDMA_LITTLE_ENDIANNESS_PRESERVE;
+    hmdma_quadspi_fifo_th.Init.SourceInc = MDMA_SRC_INC_BYTE;
+    hmdma_quadspi_fifo_th.Init.DestinationInc = MDMA_DEST_INC_DISABLE;
+    hmdma_quadspi_fifo_th.Init.SourceDataSize = MDMA_SRC_DATASIZE_BYTE;
+    hmdma_quadspi_fifo_th.Init.DestDataSize = MDMA_DEST_DATASIZE_BYTE;
+    hmdma_quadspi_fifo_th.Init.DataAlignment = MDMA_DATAALIGN_PACKENABLE;
+    hmdma_quadspi_fifo_th.Init.BufferTransferLength = 1;
+    hmdma_quadspi_fifo_th.Init.SourceBurst = MDMA_SOURCE_BURST_SINGLE;
+    hmdma_quadspi_fifo_th.Init.DestBurst = MDMA_DEST_BURST_SINGLE;
+    hmdma_quadspi_fifo_th.Init.SourceBlockAddressOffset = 0;
+    hmdma_quadspi_fifo_th.Init.DestBlockAddressOffset = 0;
+    if (HAL_MDMA_Init(&hmdma_quadspi_fifo_th) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    if (HAL_MDMA_ConfigPostRequestMask(&hmdma_quadspi_fifo_th, 0, 0) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(qspiHandle,hmdma,hmdma_quadspi_fifo_th);
+
+    /* QUADSPI interrupt Init */
+    HAL_NVIC_SetPriority(QUADSPI_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(QUADSPI_IRQn);
   /* USER CODE BEGIN QUADSPI_MspInit 1 */
 
   /* USER CODE END QUADSPI_MspInit 1 */
@@ -149,6 +182,11 @@ void HAL_QSPI_MspDeInit(QSPI_HandleTypeDef* qspiHandle)
 
     HAL_GPIO_DeInit(GPIOD, GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13);
 
+    /* QUADSPI MDMA DeInit */
+    HAL_MDMA_DeInit(qspiHandle->hmdma);
+
+    /* QUADSPI interrupt Deinit */
+    HAL_NVIC_DisableIRQ(QUADSPI_IRQn);
   /* USER CODE BEGIN QUADSPI_MspDeInit 1 */
 
   /* USER CODE END QUADSPI_MspDeInit 1 */
