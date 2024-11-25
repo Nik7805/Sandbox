@@ -34,6 +34,7 @@
 #include "w25qxx_qspi.h"
 #include "w25qxx.h"
 #include <string.h>
+#include "w25q_mem.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,14 +109,57 @@ int main(void)
 
 
   // QSPI test code.
-  // const char* string = "HELLO QSPI FLASH!";
+  // const char* string2 = "Next page test";
+  // const char* string1 = "page test";
   // uint8_t readbuffer[100];
   // w25qxx_Init();
-  // W25qxx_EraseSector(0);
-  // W25qxx_Write((uint8_t*)string, 0, strlen(string));
+  // W25qxx_Write((uint8_t*)string1, 0, strlen(string1));
+  // W25qxx_Write((uint8_t*)string2, 4096, strlen(string2));
   // W25qxx_Read(readbuffer, 0, 100);
+  // W25qxx_Read(readbuffer, 4096, 100);
 
-  __NOP();
+  // __NOP();
+
+  // volatile W25Q_STATE state = W25Q_Init();		 // init the chip
+	// state = W25Q_EraseSector(0); // erase 4K sector - required before recording
+
+	// // make test data
+	// u8_t byte = 0x65;
+	// u8_t byte_read = 0;
+	// u8_t in_page_shift = 0;
+	// u8_t page_number = 0;
+	// // write data
+	// state = W25Q_ProgramByte(byte, in_page_shift, page_number);
+	// // read data
+	// state = W25Q_ReadByte(&byte_read, in_page_shift, page_number);
+
+	// // make example structure
+	// struct STR {
+	// 	u8_t abc;
+	// 	u32_t bca;
+	// 	char str[4];
+	// 	fl_t gg;
+	// } _str, _str2;
+
+	// // fill instance
+	// _str.abc = 0x20;
+	// _str.bca = 0x3F3F4A;
+	// _str.str[0] = 'a';
+	// _str.str[1] = 'b';
+	// _str.str[2] = 'c';
+	// _str.str[3] = '\0';
+	// _str.gg = 0.658;
+
+	// u16_t len = sizeof(_str);	// length of structure in bytes
+
+	// // program structure
+	// state = W25Q_ProgramData((u8_t*) &_str, len, in_page_shift, page_number);
+	// // read structure to another instance
+	// state = W25Q_ReadData((u8_t*) &_str2, len, in_page_shift, page_number);
+
+	// state = W25Q_Sleep();	// go to sleep
+
+	// __NOP();	// place for breakpoint
 
   // SPI flash test code.
 

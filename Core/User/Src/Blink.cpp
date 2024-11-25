@@ -8,15 +8,73 @@ extern "C" {
 #include "w25qxx_qspi.h"
 #include "string.h"
 }
+#include "fatfs.h"
+
+#define WORK_BUF_SIZE 8192
+static uint8_t work_buffer[WORK_BUF_SIZE];
 
 void Blink(void *params)
 {
-    w25qxx_Init();
-    uint8_t buffer[30];
-    const char* msg = "This is tread write process!";
-    W25qxx_EraseSector(0);
-    W25qxx_Write_RTOS((uint8_t*)msg, 0, strlen(msg));
-    W25qxx_Read_RTOS(buffer, 0, 30);
+
+    MX_FATFS_Init();
+    FATFS fs;
+    volatile FRESULT res;
+    res = f_mount(&fs, "0:/", 1);
+    if(res != FR_OK)
+    {
+        res = f_mkfs("0:/", FM_FAT, 0, work_buffer, WORK_BUF_SIZE);
+        if(res != FR_OK)
+        {
+            __NOP();
+        }
+
+        res = f_mount(&fs, "0:/", 1);
+        if(res != FR_OK)
+        {
+            __NOP();
+        }
+    }
+
+
+    uint32_t freeClust;
+    FATFS* fs_ptr = &fs;
+    // Warning! This fills fs.n_fatent and fs.csize!
+    res = f_getfree("0:/", &freeClust, &fs_ptr);
+    if(res != FR_OK) 
+    {
+        __NOP();
+    }
+
+    uint32_t totalBlocks = (fs.n_fatent - 2) * fs.csize;
+    uint32_t freeBlocks = freeClust * fs.csize;
+
+    __NOP();
+
+    // DIR dir;
+    // res = f_opendir(&dir, "0:/");
+    // if(res != FR_OK) 
+    // {
+    //     __NOP();
+    // }
+
+    FIL logFile;
+    int i = 5;
+    UINT writen = 0;
+    res = f_open(&logFile, "cfg.txt", FA_READ | FA_WRITE | FA_OPEN_ALWAYS);
+    if(res != FR_OK) {
+        __NOP();
+        f_open(&logFile, "cfg.txt", FA_CREATE_NEW | FA_WRITE);
+    }
+    else
+    {
+        f_read(&logFile, &i, sizeof(i), &writen);
+    }
+    ++i;
+    res = f_lseek(&logFile, 0);
+    res = f_write(&logFile, &i, sizeof(i), &writen);
+    res = f_close(&logFile);
+
+    res = f_mount(NULL, "", 0);
 
     while(1)
     {

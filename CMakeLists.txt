@@ -23,7 +23,7 @@ set(CMAKE_C_STANDARD 11)
 set(MCPU cortex-m7)
  
 # Uncomment for hardware floating point
-# add_compile_definitions(ARM_MATH_CM7;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
+add_compile_definitions(ARM_MATH_CM7;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
 add_compile_options(-mfloat-abi=hard -mfpu=fpv5-d16)
 add_link_options(-mfloat-abi=hard -mfpu=fpv5-d16)
  

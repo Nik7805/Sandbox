@@ -31,7 +31,7 @@
 #endif
 
 /* USER CODE BEGIN DECL */
-
+#include "w25qxx_qspi.h"
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "ff_gen_drv.h"
@@ -81,6 +81,11 @@ DSTATUS USER_initialize (
 )
 {
   /* USER CODE BEGIN INIT */
+  if(pdrv == 0)
+  {
+    w25qxx_Init();
+    return RES_OK;
+  }
     Stat = STA_NOINIT;
     return Stat;
   /* USER CODE END INIT */
@@ -96,6 +101,10 @@ DSTATUS USER_status (
 )
 {
   /* USER CODE BEGIN STATUS */
+  if(pdrv == 0)
+  {
+    return (w25qxx_GetID() != 0) ? RES_OK : STA_NOINIT;
+  }
     Stat = STA_NOINIT;
     return Stat;
   /* USER CODE END STATUS */
@@ -117,7 +126,13 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
+  if(pdrv == 0)
+  {
+    // W25qxx_Read_RTOS(buff, sector * _MIN_SS, count * _MIN_SS);
+    W25qxx_Read(buff, sector * _MIN_SS, count * _MIN_SS);
     return RES_OK;
+  }
+    return RES_NOTRDY;
   /* USER CODE END READ */
 }
 
@@ -139,7 +154,13 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
+  if(pdrv == 0)
+  {
+    // W25qxx_Write_RTOS(buff, sector * _MIN_SS, count * _MIN_SS);
+    W25qxx_Write(buff, sector * _MIN_SS, count * _MIN_SS);
     return RES_OK;
+  }
+    return RES_NOTRDY;
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -159,7 +180,17 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
+  if(pdrv == 0)
+  {
+    DWORD resp[5] = {0, 4096, 2048, 1, 0};
+    DWORD* result = (DWORD*)buff;
+    if(cmd < 5)
+    {
+      *result = resp[cmd];
+    }
+    return RES_OK;
+  }
+    DRESULT res = RES_PARERR;
     return res;
   /* USER CODE END IOCTL */
 }

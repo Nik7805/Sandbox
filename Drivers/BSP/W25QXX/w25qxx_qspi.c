@@ -16,7 +16,7 @@ static uint8_t QSPI_Send_CMD(QSPI_HandleTypeDef *hqspi,uint32_t instruction, uin
 										
 static w25qxx_StatusTypeDef w25qxx_Mode = w25qxx_SPIMode;
 static uint8_t w25qxx_StatusReg[3];
-static uint16_t w25qxx_ID;
+static uint16_t w25qxx_ID = 0;
 static SemaphoreHandle_t lock = NULL;
 static SemaphoreHandle_t process = NULL;
 static uint8_t W25QXX_BUF[4096];
@@ -499,7 +499,7 @@ void W25qxx_Write(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
 		}
 		if (i < secremain) //��Ҫ����
 		{
-			W25qxx_EraseSector(secpos); //�����������
+			W25qxx_EraseSector(secpos * 4096); //�����������
 			for (i = 0; i < secremain; i++) //����
 			{
 				W25QXX_BUF[i + secoff] = pBuffer[i];
@@ -552,7 +552,7 @@ void W25qxx_Write_RTOS(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToW
 		}
 		if (i < secremain) //��Ҫ����
 		{
-			W25qxx_EraseSector_RTOS(secpos); //�����������
+			W25qxx_EraseSector_RTOS(secpos * 4096); //�����������
 			for (i = 0; i < secremain; i++) //����
 			{
 				W25QXX_BUF[i + secoff] = pBuffer[i];
