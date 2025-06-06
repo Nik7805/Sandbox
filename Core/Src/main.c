@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "dma.h"
 #include "fatfs.h"
 #include "mdma.h"
 #include "quadspi.h"
@@ -99,11 +100,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_MDMA_Init();
-  MX_TIM1_Init();
+  MX_DMA_Init();
   MX_QUADSPI_Init();
   MX_RTC_Init();
   MX_SPI4_Init();
   MX_SPI1_Init();
+  MX_TIM1_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 

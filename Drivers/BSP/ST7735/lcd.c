@@ -168,7 +168,7 @@ uint16_t BACK_COLOR=BLUE;  //����ɫ
 //��ָ��λ����ʾһ���ַ�
 //x,y:��ʼ����
 //num:Ҫ��ʾ���ַ�:" "--->"~"
-//size:������? 12/16
+//size:������? 12/16
 //mode:���ӷ�ʽ(1)���Ƿǵ��ӷ�ʽ(0)  
 
 void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
@@ -186,7 +186,7 @@ void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
 	ST7735_GetYSize(&st7735_pObj,&h);
 	
 	//���ô���		   
-	num=num-' ';//�õ�ƫ�ƺ���?
+	num=num-' ';//�õ�ƫ�ƺ���?
 	count = 0;
 	
 	if(!mode) //�ǵ��ӷ�ʽ
@@ -251,9 +251,9 @@ void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
 }   
 
 //��ʾ�ַ���
-//x,y:�������?
-//width,height:������?  
-//size:������?
+//x,y:�������?
+//width,height:������?  
+//size:������?
 //*p:�ַ�����ʼ��ַ
 void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t size,uint8_t *p)
 {         
