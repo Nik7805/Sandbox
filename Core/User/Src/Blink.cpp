@@ -10,7 +10,7 @@ extern "C" {
 }
 #include "fatfs.h"
 
-#define WORK_BUF_SIZE 8192
+#define WORK_BUF_SIZE 4096
 static uint8_t work_buffer[WORK_BUF_SIZE];
 
 void Blink(void *params)
