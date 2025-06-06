@@ -267,6 +267,11 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName )
+{
+  Error_Handler();
+}
+
 /* USER CODE END 4 */
 
 /**

@@ -55,6 +55,7 @@
 /* USER CODE BEGIN 0 */
   extern void configureTimerForRunTimeStats(void);
   extern unsigned long getRunTimeCounterValue(void);
+#define configCHECK_FOR_STACK_OVERFLOW           2
 /* USER CODE END 0 */
 #endif
 #ifndef CMSIS_device_header
