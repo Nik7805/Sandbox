@@ -30,11 +30,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <string.h>
 #include "FreeRTOS.h"
 #include "InitTasks.h"
+#include "semphr.h"
 #include "w25qxx_qspi.h"
 #include "w25qxx.h"
-#include <string.h>
 #include "w25q_mem.h"
 /* USER CODE END Includes */
 
@@ -56,6 +57,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+xSemaphoreHandle lcd_tx_end_sem;
 
 /* USER CODE END PV */
 
@@ -69,6 +71,14 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+  if(hspi == &hspi4)
+  {
+    xSemaphoreGiveFromISR(lcd_tx_end_sem, NULL);
+  }
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -78,7 +88,7 @@ void MX_FREERTOS_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  lcd_tx_end_sem = xSemaphoreCreateBinary();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/

@@ -1,8 +1,19 @@
+#include <string.h>
 #include "lcd.h"
 #include "font.h"
 #include "spi.h"
 #include "tim.h"
 #include "main.h"
+#include "FreeRTOS.h"
+#include "semphr.h"
+
+#if defined( __ICCARM__ )
+  #define DMA_BUFFER \
+      _Pragma("location=\".dma_buffer\"")
+#else
+  #define DMA_BUFFER \
+      __attribute__((section(".dma_buffer")))
+#endif
 
 //SPI��ʾ���ӿ�
 //LCD_RST
@@ -43,6 +54,9 @@ ST7735_IO_t st7735_pIO = {
 
 ST7735_Object_t st7735_pObj;
 uint32_t st7735_id;
+DMA_BUFFER uint8_t lcd_dma_buffer[4096];
+
+extern xSemaphoreHandle lcd_tx_end_sem;
 
 void LCD_Test(void)
 {
@@ -326,7 +340,16 @@ static int32_t lcd_senddata(uint8_t* pdata,uint32_t length)
 	int32_t result;
 	LCD_CS_RESET;
 	//LCD_RS_SET;
-	result =HAL_SPI_Transmit(SPI_Drv,pdata,length,100);
+	if(length <= 4096)
+	{
+		memcpy(lcd_dma_buffer, pdata, length);
+	}
+	else
+	{
+		Error_Handler();
+	}
+	result = HAL_SPI_Transmit_DMA(SPI_Drv,lcd_dma_buffer,length);
+	xSemaphoreTake(lcd_tx_end_sem, portMAX_DELAY);	
 	LCD_CS_SET;
 	if(result>0){
 		result = -1;}
