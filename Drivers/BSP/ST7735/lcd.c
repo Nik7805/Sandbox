@@ -97,7 +97,7 @@ void LCD_Test(void)
 	}
 	LCD_Light(0, 300);
 
-	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width,ST7735Ctx.Height, BLACK);
+	LCD_Clear();
 
 	sprintf((char *)&text, "WeAct Studio");
 	LCD_ShowString(4, 4, ST7735Ctx.Width, 16, 16, text);
@@ -164,11 +164,11 @@ void LCD_Light(uint32_t Brightness_Dis,uint32_t time)
 }
 	
 uint16_t POINT_COLOR=0xFFFF;	//������ɫ
-uint16_t BACK_COLOR=BLACK;  //����ɫ 
+uint16_t BACK_COLOR=BLUE;  //����ɫ 
 //��ָ��λ����ʾһ���ַ�
 //x,y:��ʼ����
 //num:Ҫ��ʾ���ַ�:" "--->"~"
-//size:�����С 12/16
+//size:������? 12/16
 //mode:���ӷ�ʽ(1)���Ƿǵ��ӷ�ʽ(0)  
 
 void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
@@ -186,7 +186,7 @@ void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
 	ST7735_GetYSize(&st7735_pObj,&h);
 	
 	//���ô���		   
-	num=num-' ';//�õ�ƫ�ƺ��ֵ
+	num=num-' ';//�õ�ƫ�ƺ���?
 	count = 0;
 	
 	if(!mode) //�ǵ��ӷ�ʽ
@@ -251,9 +251,9 @@ void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
 }   
 
 //��ʾ�ַ���
-//x,y:�������
-//width,height:�����С  
-//size:�����С
+//x,y:�������?
+//width,height:������?  
+//size:������?
 //*p:�ַ�����ʼ��ַ
 void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t size,uint8_t *p)
 {         
@@ -268,6 +268,11 @@ void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t
         x+=size/2;
         p++;
     }  
+}
+
+void LCD_Clear()
+{
+	ST7735_LCD_Driver.FillRect(&st7735_pObj, 0, 0, ST7735Ctx.Width,ST7735Ctx.Height, BACK_COLOR);
 }
 
 static int32_t lcd_init(void)
