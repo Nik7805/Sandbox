@@ -13,6 +13,10 @@ set(CMAKE_OBJCOPY ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}objcopy)
 set(CMAKE_OBJDUMP ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}objdump)
 set(SIZE ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(LV_BUILD_CONF_DIR Middlewares/Third_Party/lvgl)
+set(CONFIG_LV_BUILD_DEMOS FALSE)
+set(CONFIG_LV_BUILD_EXAMPLES FALSE)
+add_subdirectory(Middlewares/Third_Party/lvgl)
  
 # Add you project name
 project(Sandbox C CXX ASM)
@@ -143,9 +147,6 @@ Core/User/Src/InitTasks.cpp
 Core/User/Src/Blink.cpp
 Core/User/Src/LcdThread.cpp
 )
-
-set(LV_BUILD_CONF_DIR Middlewares/Third_Party/lvgl)#${CMAKE_SOURCE_DIR}/Core/Inc/lv_conf.h)
-add_subdirectory(Middlewares/Third_Party/lvgl)
  
 # Add lincer file
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H743VITx_FLASH.ld)
