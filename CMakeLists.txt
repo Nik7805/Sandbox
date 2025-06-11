@@ -13,16 +13,18 @@ set(CMAKE_OBJCOPY ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}objcopy)
 set(CMAKE_OBJDUMP ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}objdump)
 set(SIZE ${TOOLCHAIN_PATH}/${TOOLCHAIN_PREFIX}size)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-set(LV_BUILD_CONF_DIR Middlewares/Third_Party/lvgl)
+
+set(LV_BUILD_LVGL_H_SYSTEM_INCLUDE TRUE)
+set(LV_BUILD_LVGL_H_SIMPLE_INCLUDE FALSE)
 set(CONFIG_LV_BUILD_DEMOS FALSE)
 set(CONFIG_LV_BUILD_EXAMPLES FALSE)
-add_subdirectory(Middlewares/Third_Party/lvgl)
+add_subdirectory(lvgl)
  
 # Add you project name
 project(Sandbox C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
- 
+
 # Add carnel name
 set(MCPU cortex-m7)
  
@@ -71,7 +73,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/FATFS/Target 
         ${CMAKE_SOURCE_DIR}/FATFS/App 
         ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
-        ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/lwgl
+        ${CMAKE_SOURCE_DIR}/lwgl
         )
  
 # Add C defines
@@ -156,7 +158,7 @@ add_link_options(-specs=nosys.specs -lstdc++)
 add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 add_link_options(-mcpu=${MCPU} -mthumb)
 add_link_options(-T ${LINKER_SCRIPT})
- 
+
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
  
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
