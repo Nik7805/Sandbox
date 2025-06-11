@@ -67,6 +67,7 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/FATFS/Target 
         ${CMAKE_SOURCE_DIR}/FATFS/App 
         ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/FatFs/src
+        ${CMAKE_SOURCE_DIR}/Middlewares/Third_Party/lwgl
         )
  
 # Add C defines
@@ -142,6 +143,9 @@ Core/User/Src/InitTasks.cpp
 Core/User/Src/Blink.cpp
 Core/User/Src/LcdThread.cpp
 )
+
+set(LV_BUILD_CONF_DIR Middlewares/Third_Party/lvgl)#${CMAKE_SOURCE_DIR}/Core/Inc/lv_conf.h)
+add_subdirectory(Middlewares/Third_Party/lvgl)
  
 # Add lincer file
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H743VITx_FLASH.ld)
